@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,23 +9,77 @@
 
     <title>add</title>
 </head>
+
 <body>
-    <h1>add page</h1>
+    <div class="jumbotron">
+        <h1>add a character</h1>
+        <hr />
+        <form id="addSubmit">
+            <div class="mb-2">
+                <label for="nameInput">Enter a Character's Name</label>
+                <input type="text" id="nameInput" class="form-control">
+            </div>
+            <div class="mb-2">
+                <label for="routeInput">Enter a Search Route</label>
+                <input type="text" id="routeInput" class="form-control">
+            </div>
+            <div class="mb-2">
+                <label for="roleInput">Enter a Role</label>
+                <input type="text" id="roleInput" class="form-control">
+            </div>
+            <div class="mb-2">
+                <label for="ageInput">Enter a character age</label>
+                <input type="text" id="ageInput" class="form-control">
+            </div>
+            <div class="mb-2">
+                <label for="forcePointsInput">Enter Force Points</label>
+                <input type="text" id="forcePointsInput" class="form-control">
+            </div>
+            <button class="btn btn-primary">add</button>
+        </form>
+    </div>
+
 
     <script>
-        fetch("/api/characters/new", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                name: nameInput.value, 
-                forcePoints: forcePoints.value
-            }),
-        })
-            .then((res) => res.json())
-            .then((data) => console.log(data))
-            .catch((err) => console.log(err))
+        const nameInput = document.getElementById("nameInput");
+        const routeInput = document.getElementById("routeInput");
+        const roleInput = document.getElementById("roleInput");
+        const ageInput = document.getElementById("ageInput");
+        const forcePointsInput = document.getElementById("forcePointsInput");
+
+        const addForm = document.getElementById("addSubmit");
+
+        addForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            //console.log("wont crash??")
+
+            //console.log(roleInput.value);
+
+            const newCharacterData = {
+                name: nameInput.value,
+                routeName: routeInput.value,
+                role: roleInput.value,
+                age: ageInput.value,
+                forcePoints: forcePointsInput.value
+            };
+
+            //console.log(newCharacterData);
+
+            fetch("/api/characters/new", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(newCharacterData),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    alert("You have added a character");
+                })
+                .catch((err) => console.log(err));
+        });
     </script>
 </body>
+
 </html>

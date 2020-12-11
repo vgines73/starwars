@@ -22,11 +22,11 @@ router.get("/characters/find/:routename", (req, res) => {
             }
         }
         return res.json({ msg: "the character you are searching for does not exist yo!" })
-    })
+    })  
 });
 
 router.post("/characters/new", (req, res) => {
-    // console.log(req.body);
+    console.log(req.body);
     // res.send("Yips");
     fs.readFile("./data.json", "utf8", (err, data) => {
         if (err) throw err;
